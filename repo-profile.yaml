@@ -1,0 +1,48 @@
+repository:
+  name: ESXi-AIOps-Agent
+  category: project_repo
+  inherits_from: work-env
+
+sources:
+  common_policy_repo: C:\dev\work-env
+
+agents:
+  codex:
+    role: implementation_orchestrator
+  claude:
+    role: design_reviewer_sidecar
+  xai:
+    role: research_sidecar
+
+shared_skills:
+  - name: x-search
+    source_repo: work-env
+    source_path: skills/x-search
+    use_cases:
+      - blog_source_collection
+      - slide_source_collection
+      - market_signal_scan
+
+project:
+  summary: Natural-language ESXi operations agent using Gemini, SSH, and Playwright.
+  stack:
+    - python
+    - gemini
+    - paramiko
+    - playwright
+    - vmware-esxi
+  primary_commands:
+    bootstrap:
+      - python -m venv venv
+      - .\venv\Scripts\activate
+      - pip install -r requirements.txt
+      - playwright install chromium
+    test:
+      - python -m compileall .
+    run:
+      - python esxi_aiops.py
+
+governance:
+  common_policy_source: work-env
+  secrets_source: 1password_cli
+  deliverable_sot: onedrive_for_business
